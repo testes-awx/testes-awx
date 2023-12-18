@@ -1,6 +1,6 @@
 ---
 - name: Testing Playbook
-  hosts: 10.126.108.15
+  hosts: all
   gather_facts: yes
   become: yes
 
