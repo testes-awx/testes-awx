@@ -1,0 +1,35 @@
+---
+- name: Testing Playbook
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: Display system information
+      debug:
+        var: ansible_facts
+
+    - name: Create a test file
+      file:
+        path: /tmp/test.txt
+        state: touch
+
+    - name: Write content to the test file
+      blockinfile:
+        path: /tmp/test.txt
+        content: |
+          This is a test file.
+          It is used for testing purposes.
+
+    - name: Display the content of the test file
+      shell: cat /tmp/test.txt
+      register: file_content
+
+    - name: Output the content of the test file
+      debug:
+        var: file_content.stdout_lines
+
+    - name: Remove the test file
+      file:
+        path: /tmp/test.txt
+        state: absent
